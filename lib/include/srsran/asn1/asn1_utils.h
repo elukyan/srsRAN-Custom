@@ -113,9 +113,9 @@ void log_error_code(SRSASN_CODE code, const char* filename, int line);
 
 #define HANDLE_CODE(ret)                                                                                               \
   do {                                                                                                                 \
-    SRSASN_CODE macrocode = ((ret));                                                                                   \
-    if (macrocode != SRSASN_SUCCESS) {                                                                                 \
-      log_error_code(macrocode, __FILE__, __LINE__);                                                                   \
+    asn1::SRSASN_CODE macrocode = ((ret));                                                                                   \
+    if (macrocode != asn1::SRSASN_SUCCESS) {                                                                                 \
+      asn1::log_error_code(macrocode, __FILE__, __LINE__);                                                                   \
       return macrocode;                                                                                                \
     }                                                                                                                  \
   } while (0)
@@ -1451,6 +1451,140 @@ int test_pack_unpack_consistency(const Msg& msg)
   return SRSASN_SUCCESS;
 }
 
+
 } // namespace asn1
+
+// test
+
+// FreqBandInformation ::= CHOICE
+/*struct ue_cap_enquiry_v1510_ies_s {
+  // member variables
+  bool                       requested_freq_bands_nr_mrdc_r15_present = false;
+  bool                       non_crit_ext_present                     = false;
+  dyn_octstring              requested_freq_bands_nr_mrdc_r15;
+  ue_cap_enquiry_v1530_ies_s non_crit_ext;
+
+  // sequence methods
+  SRSASN_CODE pack(bit_ref& bref) const;
+  SRSASN_CODE unpack(bit_ref& bref);
+  void        to_json(json_writer& j) const;
+};
+*/
+
+
+
+// FreqBandList ::= SEQUENCE (SIZE (1..maxBandsMRDC)) OF FreqBandInformation
+
+/*
+
+FreqBandInformation ::= CHOICE {
+
+    bandInformationEUTRA FreqBandInformationEUTRA,
+
+    bandInformationNR FreqBandInformationNR
+
+}
+
+
+
+FreqBandInformationEUTRA ::= SEQUENCE {
+
+    bandEUTRA FreqBandIndicatorEUTRA,
+
+    ca-BandwidthClassDL-EUTRA CA-BandwidthClassEUTRA OPTIONAL, -- Need N
+
+    ca-BandwidthClassUL-EUTRA CA-BandwidthClassEUTRA OPTIONAL -- Need N
+
+}
+
+
+
+FreqBandInformationNR ::= SEQUENCE {
+
+    bandNR FreqBandIndicatorNR,
+
+    maxBandwidthRequestedDL AggregatedBandwidth OPTIONAL, -- Need N
+
+    maxBandwidthRequestedUL AggregatedBandwidth OPTIONAL, -- Need N
+
+    maxCarriersRequestedDL INTEGER (1..maxNrofServingCells) OPTIONAL, -- Need N
+
+    maxCarriersRequestedUL INTEGER (1..maxNrofServingCells) OPTIONAL -- Need N
+
+}
+
+
+
+    AggregatedBandwidth ::= ENUMERATED {mhz50, mhz100, mhz150, mhz200, mhz250, mhz300, mhz350, mhz400,
+
+                                                           mhz450, mhz500, mhz550, mhz600, mhz650, mhz700, mhz750, mhz800}
+
+ */
+
+
+//FreqBandInformationEUTRA-v1510 ::= SEQUENCE
+/*{
+
+    bandEUTRA FreqBandIndicatorEUTRA,
+
+    ca-BandwidthClassDL-EUTRA CA-BandwidthClassEUTRA OPTIONAL, -- Need N
+
+    ca-BandwidthClassUL-EUTRA CA-BandwidthClassEUTRA OPTIONAL -- Need N
+
+}
+*/
+
+//FreqBandInformationNR-v1510 ::= SEQUENCE
+
+struct freq_band_info_nr_v1510_s {
+/*
+	struct types_opts {
+			enum options {EUTRA, NR} value; // add back NR
+		};
+		 typedef enumerated<types_opts> types;
+		 types  type_;
+*/
+	bool                      max_bandwidth_requested_dl_nr_r15_present     = false;
+	bool                      max_bandwidth_requested_ul_nr_r15_present     = false;
+
+	uint16_t                  band_nr_r15                 = 1;
+	/*
+   maxBandwidthRequestedDL AggregatedBandwidth OPTIONAL, -- Need N
+   maxBandwidthRequestedUL AggregatedBandwidth OPTIONAL, -- Need N
+   maxCarriersRequestedDL INTEGER (1..maxNrofServingCells) OPTIONAL, -- Need N
+   maxCarriersRequestedUL INTEGER (1..maxNrofServingCells) OPTIONAL -- Need N
+}
+
+	*/
+	  // sequence methods
+	  asn1::SRSASN_CODE pack(asn1::bit_ref& bref) const;
+	  asn1::SRSASN_CODE unpack(asn1::cbit_ref& bref);
+	  void        to_json(asn1::json_writer& j) const;
+};
+
+
+  struct freq_band_info_X_v1510_s {
+    uint16_t                  band_nr_r15                 = 0;
+    uint16_t                  band_eutra_r15                 = 0;
+
+	  // sequence methods
+	  asn1::SRSASN_CODE pack(asn1::bit_ref& bref) const;
+	  asn1::SRSASN_CODE unpack(asn1::cbit_ref& bref);
+	  void        to_json(asn1::json_writer& j) const;
+  };
+
+  typedef asn1::dyn_array<freq_band_info_X_v1510_s> freq_band_list_v1510_s;
+
+
+  struct freq_band_list_v1510_s_l {
+	  freq_band_list_v1510_s freq_band_list_v1510;
+	  asn1::SRSASN_CODE pack(asn1::bit_ref& bref) const;
+	  asn1::SRSASN_CODE unpack(asn1::cbit_ref& bref);
+	  void        to_json(asn1::json_writer& j) const;
+  };
+
+
+
+
 
 #endif // SRSASN_COMMON_UTILS_H

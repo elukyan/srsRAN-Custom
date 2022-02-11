@@ -587,7 +587,8 @@ struct lte_band lte_bands[SRSRAN_NOF_LTE_BANDS] = {
     {68, 753, 67536, 132672, 55, SRSRAN_BAND_GEO_AREA_EMEA},
     {69, 2570, 67836, 0, 0, SRSRAN_BAND_GEO_AREA_EMEA},
     {70, 1995, 68336, 132972, 300, SRSRAN_BAND_GEO_AREA_NAR},
-    {71, 0, 68586, 133122, 0, SRSRAN_BAND_GEO_AREA_NAR} // dummy band to bound band 70 earfcn
+    {71, 617, 68586, 133122, -46, SRSRAN_BAND_GEO_AREA_NAR},
+    {72, 461, 68936, 133472, 5, SRSRAN_BAND_GEO_AREA_EMEA}
 };
 
 int srsran_str2mimotype(char* mimo_type_str, srsran_tx_scheme_t* type)
@@ -661,7 +662,7 @@ uint8_t srsran_band_get_band(uint32_t dl_earfcn)
 {
   uint32_t i = SRSRAN_NOF_LTE_BANDS - 1;
   if (dl_earfcn > lte_bands[i].dl_earfcn_offset) {
-    ERROR("Invalid DL_EARFCN=%d", dl_earfcn);
+    ERROR("Invalid DL_EARFCN=%d compared to %d\n", dl_earfcn, lte_bands[i].dl_earfcn_offset);
     return 0;
   }
   i--;

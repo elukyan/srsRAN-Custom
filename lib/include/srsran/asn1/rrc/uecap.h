@@ -5758,4 +5758,19 @@ struct ue_radio_access_cap_info_s {
 } // namespace rrc
 } // namespace asn1
 
+
+//FreqBandInformationEUTRA-v1510 ::= SEQUENCE
+struct freq_band_info_eutra_v1510_s {
+	bool                      ca_bw_class_dl_eutra_r15_present     = false;
+	bool                      ca_bw_class_ul_eutra_r15_present     = false;
+	uint16_t                  band_eutra_r15                 = 1;
+	asn1::rrc::ca_bw_class_r10_e                         ca_bw_class_dl_eutra_r15;
+	asn1::rrc::ca_bw_class_r10_e                         ca_bw_class_ul_eutra_r15;
+
+	  // sequence methods
+	  asn1::SRSASN_CODE pack(asn1::bit_ref& bref) const;
+	  asn1::SRSASN_CODE unpack(asn1::cbit_ref& bref);
+	  void        to_json(asn1::json_writer& j) const;
+};
+
 #endif // SRSASN1_RRC_UECAP_H

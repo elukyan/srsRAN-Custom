@@ -56,7 +56,7 @@ int set_derived_args_nr(all_args_t* args_, rrc_nr_cfg_t* rrc_nr_cfg_, phy_cfg_t*
 // sib.conf parsing
 namespace sib_sections {
 
-int parse_sib1(std::string filename, asn1::rrc::sib_type1_s* data);
+int parse_sib1(std::string filename, asn1::rrc::sib_type1_s* data, all_args_t* args);
 int parse_sib2(std::string filename, asn1::rrc::sib_type2_s* data);
 int parse_sib3(std::string filename, asn1::rrc::sib_type3_s* data);
 int parse_sib4(std::string filename, asn1::rrc::sib_type4_s* data);

@@ -174,6 +174,25 @@ public:
 
   bool is_csfb = false;
 
+  // struct freq_band_info_X_v1510_s {
+  //   uint16_t                  band_nr_r15                 = 0;
+  //   uint16_t                  band_eutra_r15                 = 0;
+
+	//   // sequence methods
+	//   asn1::SRSASN_CODE pack(asn1::bit_ref& bref) const;
+	//   asn1::SRSASN_CODE unpack(asn1::bit_ref& bref);
+	//   void        to_json(asn1::json_writer& j) const;
+  // };
+
+  // typedef asn1::dyn_array<freq_band_info_X_v1510_s> freq_band_list_v1510_s;
+
+  // struct freq_band_list_v1510_s_l {
+	//   freq_band_list_v1510_s freq_band_list_v1510;
+	//   asn1::SRSASN_CODE pack(asn1::bit_ref& bref) const;
+	//   asn1::SRSASN_CODE unpack(asn1::bit_ref& bref);
+	//   void        to_json(asn1::json_writer& j) const;
+  // };
+
 private:
   srsran::unique_timer activity_timer; // for basic DL/UL activity timeout
 
@@ -261,6 +280,8 @@ private:
   void apply_pdcp_srb_updates(const asn1::rrc::rr_cfg_ded_s& pending_rr_cfg);
   void apply_pdcp_drb_updates(const asn1::rrc::rr_cfg_ded_s& pending_rr_cfg);
   void apply_rlc_rb_updates(const asn1::rrc::rr_cfg_ded_s& pending_rr_cfg);
+
+  void ue_cap_debug(std::string format, ...);
 }; // class ue
 
 } // namespace srsenb
