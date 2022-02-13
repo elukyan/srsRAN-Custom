@@ -11,7 +11,7 @@ After doing so, run:
 mkdir build
 cd build
 cmake ../
-sudo make
+sudo make -j$((`nproc`+1))
 sudo make install
 sudo srsenb
 ```
